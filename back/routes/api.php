@@ -25,3 +25,5 @@ Route::get('/', function(){
 });
 
 Route::post('/user/cadastrar', [Usuario::class, 'cadastrar']);
+
+Route::get('/user/findById/{id}', [Usuario::class, 'findById']);

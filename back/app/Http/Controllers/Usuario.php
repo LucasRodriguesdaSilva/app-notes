@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 class Usuario extends Controller
 {
+
+    public function findById($id)
+    {
+        try {
+            return (new UsuarioService)->findById($id);
+        } catch (\Throwable $th) {
+            return Response()->json(['error'=>$th->getMessage()],400);
+        }
+    }
     
     public function cadastrar(Request $request): JsonResponse
     {
