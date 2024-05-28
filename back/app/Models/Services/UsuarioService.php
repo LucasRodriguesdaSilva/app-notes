@@ -4,7 +4,9 @@ namespace App\Models\Services;
 
 use App\Contracts\Usuario\CrudUsuario;
 use App\DTO\User\CreateUserDTO;
+use App\DTO\User\UserDTO;
 use App\Http\Controllers\Usuario;
+use App\Models\Entities\Usuario as EntitiesUsuario;
 use App\Models\Repositories\Usuarios;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
@@ -12,9 +14,15 @@ use InvalidArgumentException;
 
 class UsuarioService implements CrudUsuario
 {
-    public function findById(int $id): Usuarios
+    public function findById(int $id): EntitiesUsuario
     {
-        return Usuarios::find($id);
+        $user =  Usuarios::find($id);
+        return new EntitiesUsuario(UserDTO::create([
+            'id' => $user->id,
+            'nome' => $user->nome,
+            'email' => $user->email,
+            'senha' => $user->senha,
+        ]));
     }
 
     public function cadastrar(CreateUserDTO $user): Usuarios

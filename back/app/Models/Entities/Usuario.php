@@ -2,13 +2,8 @@
 
 namespace App\Models\Entities;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\DTO\User\UserDTO;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use App\Interfaces\Usuario\CrudUsuario;
-use Illuminate\Http\JsonResponse;
 
 class Usuario
 {
@@ -19,8 +14,12 @@ class Usuario
     private $email;
     private $senha;
 
-    public function __construct() 
+    public function __construct(UserDTO $user) 
     {
+        $this->id = $user->get('id');
+        $this->nome = $user->get('nome');
+        $this->email = $user->get('email');
+        $this->senha = $user->get('senha');
     }
 
     public function getId()

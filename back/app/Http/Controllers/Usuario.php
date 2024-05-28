@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\DTO\User\CreateUserDTO;
+use App\DTO\User\UpdateUserDTO;
+use App\DTO\User\UserDTO;
+use App\Models\Entities\Usuario as EntitiesUsuario;
 use App\Models\Services\UsuarioService;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
@@ -14,7 +17,9 @@ class Usuario extends Controller
     public function findById($id)
     {
         try {
-            return (new UsuarioService)->findById($id);
+            $user =  (new UsuarioService)->findById($id);
+            
+            return Response()->json($user);
         } catch (\Throwable $th) {
             return Response()->json(['error'=>$th->getMessage()],400);
         }
